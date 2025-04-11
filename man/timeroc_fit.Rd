@@ -14,7 +14,10 @@ timeroc_fit(
   init.param.copula = NULL,
   init.param.ph = NULL,
   ci = 0.95,
-  method = "mle"
+  method = "mle",
+  weights = NULL,
+  breakpoints = NULL,
+  init_bayes = NULL
 )
 }
 \arguments{
@@ -37,6 +40,12 @@ timeroc_fit(
 \item{ci}{An integer 0 to 1 for confidence level.\cr}
 
 \item{method}{A string specifying method of estimation. (Default = 'mle') \cr}
+
+\item{weights}{Weights to handle Inverse Probability Censoring Weights. \cr}
+
+\item{breakpoints}{Break points to specify intervals for Piecewise Hazard Model. \cr}
+
+\item{init_bayes}{Starting value when running the bayesian estimation.\cr}
 }
 \value{
 return a list of frequentist or bayesian estimator.
@@ -45,6 +54,7 @@ return a list of frequentist or bayesian estimator.
 Fit TimeROC using Maximum Likelihood Estimator.
 }
 \examples{
+\dontrun{
 ## fitting copula model
 test <- timeroc_obj(dist = 'gompertz-gompertz-copula', copula = "gumbel90")
 set.seed(23456)
@@ -69,5 +79,5 @@ plot(t~x, rr)
 start.t <- Sys.time()
 cc <- timeroc_fit(rr$x, rr$t, rr$event, obj = test)
 print(Sys.time()-start.t)
-
+}
 }

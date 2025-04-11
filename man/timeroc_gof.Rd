@@ -16,10 +16,11 @@ A list of test statistics and p-values. Automatically plot residuals for biomark
 Function to compute goodness-of-fit for the Proportional Hazard (PH) or copula model. For PH model, the Cox-Snell residuals are computed and compared with Exponential(rate=1). For copula model, the Rosenblatt transformation is applied before performing independence testing. Kolmogorov-Smirnov test is performed to check the goodness-of-fit of the biomarker and time-to-event.
 }
 \examples{
+\dontrun{
 # Copula model
 rt <- timeroc_obj("normal-weibull-copula",copula="clayton90")
 set.seed(1)
-rr <- rtimeroc(rt, n=300, censor.rate = 0,
+rr <- rtimeroc(rt, n=50, censor.rate = 0,
                params.x = c(mean=5, sd=1),
                params.t = c(shape=1, scale=5),
                params.copula = -2.5)
@@ -33,23 +34,6 @@ test <- timeroc_obj("normal-weibull-copula",copula="clayton90")
 jj <- timeroc_fit(test, rr$x, rr$t, rr$event)
 
 cc <- timeroc_gof(jj)
-
-# PH model
-rt <- timeroc_obj("normal-weibull-PH")
-set.seed(1)
-rr <- rtimeroc(rt, n=300, censor.rate = 0,
-               params.x = c(mean=5, sd=1),
-               params.t = c(shape=1, scale=5),
-               params.ph = 1.2)
-plot(t~x, data=rr)
-test <- timeroc_obj("lognormal-lognormal-PH")
-jj <- timeroc_fit(test, rr$x, rr$t, rr$event)
-
-cc <- timeroc_gof(jj)
-
-test <- timeroc_obj("normal-weibull-PH")
-jj <- timeroc_fit(test, rr$x, rr$t, rr$event)
-
-cc <- timeroc_gof(jj)
+}
 
 }
